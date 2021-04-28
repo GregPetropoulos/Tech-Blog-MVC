@@ -7,7 +7,7 @@ const { route } = require('./userRoutes');
 
 
 // GET ALL USERS BLOGS AND COMMENTS
-route.get('/', async (req, res) => {
+router.get('/', async (req, res) => {
   try {
     console.log('===+++=====');
     const blogData = await Blog.findAll({
@@ -42,7 +42,7 @@ route.get('/', async (req, res) => {
 });
 
 // GET A USER BLOG AND COMMENT
-route.get('/:id', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     console.log('===xoxoxox=====');
     const blogData = await Blog.findOne({

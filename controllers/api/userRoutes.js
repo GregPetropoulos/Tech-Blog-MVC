@@ -71,7 +71,7 @@ router.post('/', async (req, res) => {
       req.sessions.twitter = userData.twitter;
       req.sessions.username = userData.username;
 
-      req.session.logged_in = true;
+      req.session.loggedIn = true;
 
       res.status(200).json(userData);
     });
@@ -114,7 +114,7 @@ router.post('/login', async (req, res) => {
       req.sessions.twitter = userData.twitter;
       req.sessions.username = userData.username;
 
-      req.session.logged_in = true;
+      req.session.loggedIn = true;
 
       res.status(200).json({userData, message:'You are logged in!'});
     });
@@ -168,7 +168,7 @@ router.put('/:id', withAuth, async (req, res) => {
 
 // LOGOUT
 router.post('/logout', (req, res) => {
-  if (req.session.logged_in) {
+  if (req.session.loggedIn) {
     req.session.destroy(() => {
       res.status(204).end();
     });
