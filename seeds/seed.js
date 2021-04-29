@@ -1,12 +1,11 @@
 // Bringing in the blog-seed.js,comment-seed.js,user-seed.js
-const seedBlogs = require('./blog-seed')
-const seedComments = require('./comment-seed')
-const seedUsers = require('./user-seed')
+const seedBlogs = require('./blog-seed');
+const seedComments = require('./comment-seed');
+const seedUsers = require('./user-seed');
 const sequelize = require('../config/connection');
 
-
-const seedAll = async () =>{
-  await sequelize.sync({ force:true });
+const seedAll = async () => {
+  await sequelize.sync({ force: true });
   console.log('==The DB is synced==');
 
   await seedUsers();
@@ -15,10 +14,10 @@ const seedAll = async () =>{
   await seedBlogs();
   console.log('==The blogs are seeded==');
 
-  await seedComments()
-  console.log('==The comments is seeded==');
+  await seedComments();
+  console.log('==The comments are seeded==');
 
   process.exit(0);
-}
+};
 
 seedAll();
