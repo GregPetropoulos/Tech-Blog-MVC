@@ -44,9 +44,9 @@ router.get('/login', (res,req) => {
   // This is the withAuth spelled out
   if (req.session.loggedIn) {
   res.redirect('/');
-  return
+  return;
 }
-req.render('login')
+req.render('login');
 });
 
 // SIGNUP

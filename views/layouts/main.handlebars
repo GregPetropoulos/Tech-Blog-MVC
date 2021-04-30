@@ -5,24 +5,94 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Tech Blog!</title>
+  {{!-- bootstrap-4 --}}
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+    integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l" crossorigin="anonymous">
   <link rel="stylesheet" href="/css/jass.css">
   <link rel="stylesheet" href="/css/style.css">
+  {{!-- font awesome --}}
+  <script src="https://kit.fontawesome.com/b210927ee1.js" crossorigin="anonymous"></script>
 </head>
 
+<div class='wrapper flex-column justify-space-around'>
+  <nav>
+    <h1 class=' display-flex justify-space-between align-center p-2'>Tech Speakeasy: a tech blog
+      <span role="img" aria-label="writing-hand">✍️</span>
+    </h1>
+    <nav class='navbar mt-2'></nav>
+    {{#if loggedIn}}
+    {{!-- if access gained show the below navbar --}}
+    <a href="/" class='navbar-item navbar-item-action active" aria-current="true"" pt-1'>homepage</a>
+    <a href="/dashboard" class='navbar-item navbar-item-action active" aria-current="true"" pt-1'>dashboard</a>
+    <a href="/dashboard/create/" class='navbar-item navbar-item-action active" aria-current="true"" pt-1 mr-4'>create a
+      blog</a>
+    <button id='logout' class='btn btn-danger'>logout</button>
+    {{else}}
+
+    {{!-- otherwise show home page and login link --}}
+
+    <a href="/" class='navbar-item navbar-item-action active" aria-current="true"" pt-1'>homepage</a>
+    <a href="/login" class='btn btn-primary'>login</a>
+    {{/if}}
+  </nav>
+  </header>
+
+  <body>
+    <main class="container container-fluid mt-5">
+      <!-- Render the sub layout -->
+      {{{ body }}}
+    </main>
+
+    <footer class='container pb-2'>
+      <div class='row text-center'>
+        <p>
+          <a href='/'>homepage</a>{{#if loggedIn}} |
+          <a href='/dashboard/'>dashboard</a> |
+          <a href='/dashboard/create/'>create a new blog</a>
+          {{else}}
+
+          <a href='/login/'>login</a>
+          {{/if}}
+        </p>
+      </div>
+
+      <div class='row text-center'>
+        <p>
+          <strong> Tech Speakeasy</strong> by <a href='https://github.com/GregPetropoulos'>Greg Petropoulos</a> | made
+          with <a href='https://getbootstrap.com/'>bootstrap-4</a> | source code: <a
+            href='https://github.com/GregPetropoulos/Tech-Blog-MVC'><i class='far fa-envelope'></i></a>
+        </p>
+      </div>
+    </footer>
+</div>
+
+{{#if loggedIn}}
+<script src='/javascript/logout.js'></script>
+{{/if}}
+</body>
+
+</html>
+
+{{!-- example below from activities --}}
+{{!--
+
 <body>
+  {{!-- Wrapper --}}
   <div class="flex-column justify-space-around">
     <header class="display-flex justify-space-between align-center p-2">
       <h1>
-        <span role="img" aria-label="money">💸</span>
+        <span role="img" aria-label="writing-hand">✍️</span>
         <a href="/">Tech Blog</a>
       </h1>
-      <nav>
-        <!-- Conditionally render login or logout links -->
-        {{#if logged_in}}
-        <a href="/profile">profile</a> |
+      <nav> --}}
+        <!-- Conditionally render login or logout links  starting from homepage-->
+        {{!-- {{#if loggedIn}}
+
+        <a href='/dashboard'>dashboard</a> |
         <button class="no-button" id="logout">logout</button>
+
         {{else}}
-        <a href="/login">login</a>
+        <a href="/login" class='btn-primary' , role='button'>login</a>
         {{/if}}
       </nav>
     </header>
@@ -31,14 +101,14 @@
       {{{ body }}}
     </main>
     <footer>
-      
+
     </footer>
   </div>
 
   <!-- Render script for logged in users only -->
-  {{#if logged_in}}
+  {{#if loggedIn}}
   <script src="/js/logout.js"></script>
   {{/if}}
 </body>
 
-</html>
+</html> --}}
