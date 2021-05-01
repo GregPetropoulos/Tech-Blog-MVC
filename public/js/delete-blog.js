@@ -1,15 +1,12 @@
-async function editFormHandler(event){
+async function deleteFormHandler(event){
     event.Prevent.Default();
 
-    const title = document.querySelector('input[name="blog-title"]').value;
-    const content = document.querySelector('input[name="blog-content"]').value;
     const id = window.location.toString().split('/')[window.location.toString().split('/').length - 1];
 
     const response = await fetch(`api/blogs/${id}`, {
-        method: 'PUT',
+        method: 'DELETE',
         body: JSON.stringify({
-            title,
-            content
+            blog_id: id
         }),
         headers: {
             'Content-Type': 'application/json'
@@ -23,4 +20,4 @@ async function editFormHandler(event){
 
 }
 
-document.querySelector('.edit-blog-form').addEventListener('submit', editFormHandler)
+document.querySelector('.delete-blog-btn').addEventListener('submit', deleteFormHandler)

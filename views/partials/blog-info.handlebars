@@ -1,0 +1,25 @@
+<div class='card mb-6'>
+    <header class='card-header card-header-title text-white bg-secondary'>
+
+        <div class='col'>
+            <p class='text-white'></p>
+            <a href='/blog/{{id}}' class='text-black justify-content-end text-capitalized'>{{title}}</a>
+        </div>
+
+        <div class='col'>
+            <span class=''></span>
+        </div>
+    </header>
+    
+    <div class='card-content'>
+        <div class='content text-justify'>{{content}}</div>
+        <div class='justify-content-end'>
+            <b>{{user.username}}</b> |
+            <a href='https://twitter.com/{{user.twitter}}'><i class='fab fa twitter'></i></a>
+            <a href='https://github.com/{{user.github}}'><i class='fab fa github'></i></a>
+            | {{format_date date_created}} | <a href='/blog/{{id}}'>{{comments.length}} {{format_plural "comment"
+                comments.length}}</a>
+        </div>
+
+    </div>
+</div>
