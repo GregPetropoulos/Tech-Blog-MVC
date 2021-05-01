@@ -38,16 +38,16 @@ router.get('/', async (req, res) => {
     }
 });
 
-// // LOGIN
-// router.get('/login', (res,req) => {
-//   // If the user is already logged in, redirect the request to another route
-//   // This is the withAuth spelled out
-//   if (req.session.loggedIn) {
-//   res.redirect('/');
-//   return;
-// }
-// req.render('login');
-// });
+// LOGIN
+router.get('/login', (res,req) => {
+  // If the user is already logged in, redirect the request to another route
+  // This is the withAuth spelled out
+  if (req.session.loggedIn) {
+  res.redirect('/');
+  return;
+}
+req.render('login');
+});
 
 // SIGNUP
 router.get('signup', (req,res) => {

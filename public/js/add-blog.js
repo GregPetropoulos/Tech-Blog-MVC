@@ -1,17 +1,16 @@
-const { response } = require("express");
 
 async function newFormHandler(event){
     event.preventDefault();
 
     const title =document.querySelector('input[name ="blog-title"]').value;
-    const blog_content = document.querySelector('input[name="blog-content"]').value;
+    const content = document.querySelector('input[name="blog-content"]').value;
 
-    const response = await fetch(`/api/post`,{
+    const response = await fetch(`/api/blog`,{
         method: 'POST',
         body: JSON.stringify({
             title,
-            blog_content
-        })
+            content
+        }),
         headers: {
             'Content-Type': 'application/json'
         }
@@ -23,4 +22,4 @@ async function newFormHandler(event){
     }
 }
 
-document.querySelector('.new-post-form').addEventListener('submit',newFormHandler);
+document.querySelector('.new-blog-form').addEventListener('submit',newFormHandler);
