@@ -1,6 +1,6 @@
 # Tech-Blog-MVC
 
-[Deployed Link](httpheroku)
+[Deployed Link](https://techblogspeakeasy2021.herokuapp.com/)
 
 
 [Source Code](https://github.com/GregPetropoulos/Tech-Blog-MVC)
