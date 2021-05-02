@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const sequelize = require('../config/connection');
 const { Blog, Comment, User } = require('../models');
+const withAuth = require('../utils/auth');
 
 // FIND ALL BLOGS AND JOIN WITH COMMENT & USER ATTRIBUTES
 router.get('/', async (req, res) => {
@@ -45,7 +46,7 @@ router.get('/', async (req, res) => {
 });
 
 // LOGIN
-router.get('/login', (res, req) => {
+router.get('/login', (req, res) => {
   // If the user is already logged in, redirect the request to another route
   // This is the withAuth spelled out
   console.log(req.session);

@@ -3,7 +3,7 @@
 
         <div class='col'>
             <p class='text-white'></p>
-            <a href='/blogs/{{id}}' class='text-black justify-content-end text-capitalized'>{{title}}</a>
+            <a href='/blog/{{id}}' class='text-black justify-content-end text-capitalized'>{{title}}</a>
         </div>
 
         <div class='col'>
@@ -17,7 +17,7 @@
             <b>{{user.username}}</b> |
             <a href='https://twitter.com/{{user.twitter}}'><i class='fab fa twitter'></i></a>
             <a href='https://github.com/{{user.github}}'><i class='fab fa github'></i></a>
-            | {{format_date }} | <a href='/blogs/{{id}}'>{{comments.length}} {{format_plural "comment"
+            | {{format_date created_at}} | <a href='/blogs/{{id}}'>{{comments.length}} {{format_plural "comment"
                 comments.length}}</a>
         </div>
 
