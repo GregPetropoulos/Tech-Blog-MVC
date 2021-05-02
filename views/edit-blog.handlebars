@@ -12,12 +12,12 @@
             <input class='textarea' name='blog-content' type='text' value='{{blog.content}}' />
         </div>
         <div class='justify-content-end'>
-            created by you on {{format_date.blog.date_created}}
+            created by you on {{format_date.blog.}}
             |
             <a href='/blog/{{blog.id}}'>{{blog.comments.length}} {{format_plural 'comment' blog.comments.length}}</a>
         </div>
-        <button = type ='submit' class = 'btn btn-success'>save blog</button>
-        <button = type ='button' class = 'btn btn-danger delete-blog-btn'>delete blog</button>
+        <button=type='submit' class='btn btn-success'>save blog</button>
+        <button=type='button' class='btn btn-danger delete-blog-btn'>delete blog</button>
     </form>
 </article>
 

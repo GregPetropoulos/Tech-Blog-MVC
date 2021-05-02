@@ -2,53 +2,52 @@ const router = require('express').Router();
 const { User, Blog, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
-
-
-
 // GET api/users -- Find all users
 
 router.get('/', async (req, res) => {
   try {
     const userData = await User.findAll({
-      attributes: {exclude:['password']}
-    })
+      attributes: { exclude: ['password'] },
+    });
     res.status(200).json(userData);
-  }
-  catch (err) {
+  } catch (err) {
     res.status(500).json(err);
   }
-})
+});
 
 // GET ap/users/id -- Find a user by id
 // with references to users blogs, comments, and comments on a blog title
-router.get('/', async (req, res) => {
+router.get('/:id', async (req, res) => {
   try {
     const userData = await User.findOne({
-      attributes: {exclude:['password']},
+      attributes: { exclude: ['password'] },
       where: {
-        id: req.params.id
+        id: req.params.id,
       },
       include: [
         {
           model: Blog,
-          attributes: ['id','title','content','date_created']
+          attributes: ['id', 'title', 'content', 'created_at'],
         },
         {
           model: Comment,
-          attributes: ['id','comment_text', 'date_created'],
+          attributes: ['id', 'comment_text', 'created_at'],
           include: {
             model: Blog,
-            attributes: ['title']
-          }
-        }
-      ]
-    })
+            attributes: ['title'],
+          },
+        },
+      ],
+    });
+    if (!userData) {
+      res.status(400).json({ message: 'No user found with this id' });
+      return;
+    }
     res.status(200).json(userData);
-  }
-  catch (err) {
+  } catch (err) {
     res.status(500).json(err);
   }
-})
+});
 
 // SIGNUP
 router.post('/', async (req, res) => {
@@ -69,8 +68,6 @@ router.post('/', async (req, res) => {
       req.sessions.username = userData.username;
       req.sessions.github = userData.github;
       req.sessions.twitter = userData.twitter;
-      req.sessions.username = userData.username;
-
       req.session.loggedIn = true;
 
       res.status(200).json(userData);
@@ -83,10 +80,10 @@ router.post('/', async (req, res) => {
 // LOGIN
 router.post('/login', async (req, res) => {
   try {
-    const userData = await User.findOne({ 
-      where: { 
-        email: req.body.email 
-      } 
+    const userData = await User.findOne({
+      where: {
+        email: req.body.email,
+      },
     });
 
     if (!userData) {
@@ -96,7 +93,7 @@ router.post('/login', async (req, res) => {
       return;
     }
 
-    const validPassword = await userData.checkPassword(req.body.password);
+    const validPassword = userData.checkPassword(req.body.password);
 
     if (!validPassword) {
       res
@@ -109,14 +106,13 @@ router.post('/login', async (req, res) => {
       // I think the user_id is generated no user input needed
       req.session.user_id = userData.id;
       // All user inputs saved
-      req.sessions.username = userData.username;
-      req.sessions.github = userData.github;
-      req.sessions.twitter = userData.twitter;
-      req.sessions.username = userData.username;
-
+      req.session.username = userData.username;
+      req.session.github = userData.github;
+      req.session.twitter = userData.twitter;
+      req.session.username = userData.username;
       req.session.loggedIn = true;
 
-      res.status(200).json({userData, message:'You are logged in!'});
+      res.status(200).json({ userData, message: 'You are logged in!' });
     });
   } catch (err) {
     res.status(400).json(err);
@@ -125,46 +121,42 @@ router.post('/login', async (req, res) => {
 
 // UPDATE -- /api/users/1
 router.put('/:id', withAuth, async (req, res) => {
-  try{
-    const userData = User.update(req.body,{
+  try {
+    const userData = User.update(req.body, {
       // Will select records that are about to be updated and
       //  emit before- + after- Update on each instance
       individualHooks: true,
-      where:{
-        id: req.params.id
-      }
-    })
-    if(!userData){
-      res.status(404).json({message:'No user found with this id'})
-      return
+      where: {
+        id: req.params.id,
+      },
+    });
+    if (!userData[0]) {
+      res.status(404).json({ message: 'No user found with this id' });
+      return;
     }
     res.json(userData);
-  }
-  catch (err) {
+  } catch (err) {
     res.status(500).json(err);
   }
 });
-
 
 // DELETE
-router.put('/:id', withAuth, async (req, res) => {
-  try{
-    const userData = User.destroy(req.body,{
-      where:{
-        id: req.params.id
-      }
-    })
-    if(!userData){
-      res.status(404).json({message:'No user found with this id'})
-      return
+router.delete('/:id', withAuth, async (req, res) => {
+  try {
+    const userData = User.destroy(req.body, {
+      where: {
+        id: req.params.id,
+      },
+    });
+    if (!userData) {
+      res.status(404).json({ message: 'No user found with this id' });
+      return;
     }
     res.json(userData);
-  }
-  catch (err) {
+  } catch (err) {
     res.status(500).json(err);
   }
 });
-
 
 // LOGOUT
 router.post('/logout', (req, res) => {

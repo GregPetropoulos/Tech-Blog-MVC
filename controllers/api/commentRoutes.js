@@ -20,7 +20,7 @@ router.post('/', withAuth, async (req, res) => {
         comment_text: req.body.comment_text,
         blog_id: req.body.blog_id,
         // Using the id from session
-        user_id: req.session.user.id,
+        user_id: req.session.user.id
       });
       res.status(200).json(checkSession);
     }
