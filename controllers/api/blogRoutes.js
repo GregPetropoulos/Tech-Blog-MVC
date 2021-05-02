@@ -14,7 +14,13 @@ router.get('/', async (req, res) => {
       include: [
         {
           model: Comment,
-          attributes: ['id', 'comment_text', 'blog_id', 'user_id','created_at'],
+          attributes: [
+            'id',
+            'comment_text',
+            'blog_id',
+            'user_id',
+            'created_at',
+          ],
           include: {
             model: User,
             attributes: ['username', 'twitter', 'github'],
@@ -38,9 +44,9 @@ router.get('/:id', async (req, res) => {
     console.log('===xoxoxox=====');
     const blogData = await Blog.findOne({
       where: {
-        id: req.params.id
+        id: req.params.id,
       },
-      attributes: ['id', 'title','content','created_at'],
+      attributes: ['id', 'title', 'content', 'created_at'],
       include: [
         {
           model: User,
@@ -48,7 +54,13 @@ router.get('/:id', async (req, res) => {
         },
         {
           model: Comment,
-          attributes: ['id', 'comment_text', 'blog_id', 'user_id', 'created_at'],
+          attributes: [
+            'id',
+            'comment_text',
+            'blog_id',
+            'user_id',
+            'created_at',
+          ],
           include: {
             model: User,
             attributes: ['username', 'twitter', 'github'],
@@ -68,7 +80,7 @@ router.post('/', withAuth, async (req, res) => {
     const newBlog = await Blog.create(req.body, {
       title: req.body.title,
       content: req.body.content,
-      user_id: req.session.user_id
+      user_id: req.session.user_id,
     });
 
     res.status(200).json(newBlog);
@@ -84,11 +96,11 @@ router.put('/:id', withAuth, async (req, res) => {
       req.body,
       {
         title: req.body.title,
-        content: req.body.content
+        content: req.body.content,
       },
       {
         where: {
-          id: req.params.id
+          id: req.params.id,
         },
       }
     );
@@ -107,7 +119,7 @@ router.delete('/:id', withAuth, async (req, res) => {
     const blogData = await Blog.destroy({
       where: {
         id: req.params.id,
-        user_id: req.session.user_id
+        user_id: req.session.user_id,
       },
     });
 

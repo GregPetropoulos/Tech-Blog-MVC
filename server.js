@@ -18,7 +18,7 @@ const sess = {
   secret: 'Super secret secret',
   cookie: {
     // Make session expire in 50 minutes
-    expire: 50 * 60 * 1000
+    expire: 20 * 60 * 1000
   },
   resave: true,
   rolling: true,

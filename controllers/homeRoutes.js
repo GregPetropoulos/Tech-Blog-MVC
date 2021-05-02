@@ -11,7 +11,13 @@ router.get('/', async (req, res) => {
       include: [
         {
           model: Comment,
-          attributes: ['id', 'comment_text', 'blog_id', 'user_id', 'created_at'],
+          attributes: [
+            'id',
+            'comment_text',
+            'blog_id',
+            'user_id',
+            'created_at',
+          ],
           include: {
             model: User,
             attributes: ['username', 'twitter', 'github'],
@@ -26,7 +32,7 @@ router.get('/', async (req, res) => {
 
     // Serialize data in array so the template can read it
 
-    const blogs = blogData.map(blog => blog.get({ plain: true }));
+    const blogs = blogData.map((blog) => blog.get({ plain: true }));
 
     // Pass serialized data and session flag into template
     res.render('homepage', {
@@ -59,28 +65,34 @@ router.get('/signup', (req, res) => {
   res.render('signup');
 });
 
-router.get('/blog/:id', async (req, res) => {
+router.get('/blogs/:id', async (req, res) => {
   try {
     const blogData = await Blog.findOne({
       where: {
-        id: req.params.id
+        id: req.params.id,
       },
       attributes: ['id', 'title', 'created_at', 'content', 'user_id'],
 
       include: [
         {
           model: Comment,
-          attributes: ['id', 'comment_text', 'blog_id', 'user_id', 'created_at'],
+          attributes: [
+            'id',
+            'comment_text',
+            'blog_id',
+            'user_id',
+            'created_at',
+          ],
           include: {
             model: User,
             attributes: ['username', 'github', 'twitter'],
-          }
+          },
         },
         {
           model: User,
           attributes: ['username', 'github', 'twitter'],
-        }
-      ]
+        },
+      ],
     });
     if (!blogData) {
       res.status(404).json({ message: 'No blog found with this id' });
@@ -93,7 +105,7 @@ router.get('/blog/:id', async (req, res) => {
     // pass data to template
     res.render('single-comment', {
       blog,
-      loggedIn: req.session.loggedIn
+      loggedIn: req.session.loggedIn,
     });
   } catch (err) {
     res.status(500).json(err);
