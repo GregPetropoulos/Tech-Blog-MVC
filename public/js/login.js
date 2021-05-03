@@ -1,4 +1,4 @@
-const loginFormHandler = async (event) => {
+async function loginFormHandler (event){
   event.preventDefault();
 
   // Collect values from the login form

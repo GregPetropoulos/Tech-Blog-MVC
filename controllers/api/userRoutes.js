@@ -2,12 +2,13 @@ const router = require('express').Router();
 const { User, Blog, Comment } = require('../../models');
 const withAuth = require('../../utils/auth');
 
-// GET api/users -- Find all users
+// GET api/users -- Find all users attributes
 
 router.get('/', async (req, res) => {
   try {
     const userData = await User.findAll({
       attributes: { exclude: ['password'] },
+      
     });
     res.status(200).json(userData);
   } catch (err) {
@@ -52,7 +53,7 @@ router.get('/:id', async (req, res) => {
 // SIGNUP
 router.post('/', async (req, res) => {
   try {
-    const userData = await User.create(req.body, {
+    const userData = await User.create({
       // User inputs info at sign up page
       username: req.body.username,
       email: req.body.email,
