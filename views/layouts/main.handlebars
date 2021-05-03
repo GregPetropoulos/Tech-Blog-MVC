@@ -19,8 +19,8 @@
 
 <div class='wrapper d-flex justify-space-around'>
   <nav>
-    <h1 class=' d-flex justify-space-between align-center p-2'>Tech Speakeasy: a tech blog
-      <span role="img" aria-label="writing-hand">✍️</span>
+    <h1 class=' d-flex align-center p-2 m-4'>Tech Speakeasy: a tech blog
+      <span role="img" class = 'm-4' aria-label="writing-hand">✍️</span>
     </h1>
     <nav class='navbar mt-2'></nav>
     {{#if loggedIn}}
@@ -47,7 +47,7 @@
     </main>
 
     <footer class='container pb-2'>
-      <div class='row d-flex justify-space-between'>
+      <div class='col-2 d-flex justify-space-between'>
         <p>
           <a href='/'>homepage</a>{{#if loggedIn}} |
           <a href='/dashboard/'>dashboard</a> |
@@ -59,7 +59,7 @@
         </p>
       </div>
 
-      <div class='row d-flex justify-end'>
+      <div class='col-8 d-flex justify-space-between'>
         <p>
           <strong> Tech Speakeasy</strong> by <a href='https://github.com/GregPetropoulos'>Greg Petropoulos</a> | made
           with <a href='https://getbootstrap.com/'>bootstrap-4</a> | source code: <a
@@ -70,7 +70,7 @@
 </div>
 
 {{#if loggedIn}}
-<script src='../../public/js/logout.js'></script>
+<script src='./js/logout.js'></script>
 
 {{/if}}
 </body>

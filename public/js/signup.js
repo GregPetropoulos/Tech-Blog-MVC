@@ -14,7 +14,7 @@ async function signupFormHandler(event) {
         method: 'post',
         body: JSON.stringify({ username, email, password, twitter, github }),
         headers: { 'Content-Type': 'application/json' }
-      }),
+      });
   
       if (response.ok) {
         document.location.replace('/dashboard');

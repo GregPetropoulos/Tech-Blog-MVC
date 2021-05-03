@@ -66,9 +66,9 @@ router.post('/', async (req, res) => {
       // I think the user_id is generated no user input needed
       req.session.user_id = userData.id;
       // All user inputs saved
-      req.sessions.username = userData.username;
-      req.sessions.github = userData.github;
-      req.sessions.twitter = userData.twitter;
+      req.session.username = userData.username;
+      req.session.github = userData.github;
+      req.session.twitter = userData.twitter;
       req.session.loggedIn = true;
 
       res.status(200).json(userData);
