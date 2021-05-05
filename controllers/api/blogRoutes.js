@@ -8,7 +8,7 @@ router.get('/', async (req, res) => {
   try {
     console.log('===+++=====');
     const blogData = await Blog.findAll({
-      attributes: ['id', 'title', 'created_at', 'content'],
+      attributes: ['id', 'title', 'created_at','content'],
       order: [['created_at', 'DESC']],
       // The comment model will attach a username to comment
       include: [
@@ -77,10 +77,10 @@ router.get('/:id', async (req, res) => {
 // CREATE THE BLOG
 router.post('/', withAuth, async (req, res) => {
   try {
-    const newBlog = await Blog.create(req.body, {
+    const newBlog = await Blog.create( {
       title: req.body.title,
       content: req.body.content,
-      user_id: req.session.user_id,
+      user_id: req.session.user_id
     });
 
     res.status(200).json(newBlog);

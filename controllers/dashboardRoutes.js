@@ -20,35 +20,35 @@ router.get('/', withAuth, async (req, res) => {
             'comment_text',
             'blog_id',
             'user_id',
-            'created_at',
+            'created_at'
           ],
           include: {
             model: User,
-            attributes: ['username', 'twitter', 'github'],
-          },
+            attributes: ['username', 'twitter', 'github']
+          }
         },
         {
           model: User,
-          attributes: ['username', 'twitter', 'github'],
+          attributes: ['username', 'twitter', 'github']
         },
       ],
     });
 
     // Serialize data in array so the template can read it
 
-    const blogs = blogData.map((blog) => blog.get({ plain: true }));
+    const blogs = blogData.map(blog => blog.get({ plain: true }));
 
     // Pass serialized data and session flag into template
     res.render('dashboard', {
       blogs,
-      loggedIn: true,
+      loggedIn: true
     });
   } catch (err) {
     res.status(500).json(err);
   }
 });
 
-// FIND A BLOG
+// FIND A BLOG AND EDIT
 router.get('/edit/:id', withAuth, async (req, res) => {
   try {
     const blogData = await Blog.findOne({
@@ -92,6 +92,7 @@ router.get('/edit/:id', withAuth, async (req, res) => {
   }
 });
 
+// CREATE BLOG
 router.get('/create/', withAuth, async (req, res) => {
   try {
     const blogData = await Blog.findAll({
@@ -121,10 +122,10 @@ router.get('/create/', withAuth, async (req, res) => {
         },
       ],
     });
-    const blogs = blogData.map((blog) => blog.get({ plain: true }));
+    const blogs = blogData.map(blog => blog.get({ plain: true }));
     res.render('create-blog', {
       blogs,
-      loggedIn: true,
+      loggedIn: true
     });
   } catch (err) {
     res.status(500).json(err);
